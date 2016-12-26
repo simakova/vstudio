@@ -94,7 +94,7 @@
 
                 <Button
                Content="OK" Width="125" Grid.Row="6" Grid.Column="1"  Background="#FF2D2D30" Foreground="White"
-               x:Name="ok_but" Click="ok_but_Click" IsDefault="True">
+               x:Name="ok_but" Click="ok_but_Click" IsDefault="True" Height="40" VerticalAlignment="Top">
                 </Button>
 
                 <!--<Button

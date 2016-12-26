@@ -226,6 +226,7 @@ namespace WpfParserINet
         public void clearFields()
         {
             wnid_box.Text = String.Empty;
+            word_box.Text = String.Empty;
             cat_block.Text = String.Empty;
             gloss_block.Text = String.Empty;
             count_block.Text = String.Empty;

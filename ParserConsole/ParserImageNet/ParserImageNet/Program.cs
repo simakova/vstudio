@@ -22,45 +22,45 @@ using LiteDB;
 namespace ConsApp_HtmlParser
 {
     
-    public class Word
-    {
-        [Key]
-        public string WNID { get; set; }
-        public string NAME { get; set; }
+    //public class Word
+    //{
+    //    [Key]
+    //    public string WNID { get; set; }
+    //    public string NAME { get; set; }
         
-        public virtual WordDetail WordDetails { get; set; }
-    }
+    //    public virtual WordDetail WordDetails { get; set; }
+    //}
 
-    public class WordDetail
-    {
-        [Key]
-        public string GLOSS { get; set; }
-        public int COUNT { get; set; }
-        public int PERCENT { get; set; }
-        public string[] HYPONIM { get; set; }
+    //public class WordDetail
+    //{
+    //    [Key]
+    //    public string GLOSS { get; set; }
+    //    public int COUNT { get; set; }
+    //    public int PERCENT { get; set; }
+    //    public string[] HYPONIM { get; set; }
 
-        public virtual ICollection<Word> Words { get; set; }
-    }
+    //    public virtual ICollection<Word> Words { get; set; }
+    //}
 
-    public class WordsContext : DbContext
-    {
-        public DbSet<Word> Words { get; set; }
-        public DbSet<WordDetail> WordDetails { get; set; }
-    }
+    //public class WordsContext : DbContext
+    //{
+    //    public DbSet<Word> Words { get; set; }
+    //    public DbSet<WordDetail> WordDetails { get; set; }
+    //}
     
-    public class CachedWord
-    {
-        public string WNID { get; set; }
-        public string NAME { get; set; }
-        public string WordDetail { get; set; }
+    //public class CachedWord
+    //{
+    //    public string WNID { get; set; }
+    //    public string NAME { get; set; }
+    //    public string WordDetail { get; set; }
 
-        public void InfoOutput()
-        {
-            Console.WriteLine();
-            Console.WriteLine("{0, 20}: {1}", "Name", this.NAME);
-            Console.WriteLine("{0, 20}: {1}", "Details", this.WordDetail);
-        }
-    }
+    //    public void InfoOutput()
+    //    {
+    //        Console.WriteLine();
+    //        Console.WriteLine("{0, 20}: {1}", "Name", this.NAME);
+    //        Console.WriteLine("{0, 20}: {1}", "Details", this.WordDetail);
+    //    }
+    //}
 
     class Program
     {
@@ -74,7 +74,6 @@ namespace ConsApp_HtmlParser
                 Console.Clear();
                 Console.WriteLine("1. Enter the WordNet ID to download the mapping between WordNet ID and words" + "\n" +
                                     "2. Enter the word to find the description and other details" + "\n" +
-                                    "3. Obtain the info from data dase" + "\n" + "\n" +
                                     "Enter the number do you prefer" + "\n");
 
                 switch (Console.ReadLine())
@@ -93,11 +92,7 @@ namespace ConsApp_HtmlParser
                         Console.ReadKey();
                         break;
 
-                    case "3":
-                        Console.Clear();
-                        Console.ReadKey();
-                        break;
-
+                    
                     default:
                         Console.WriteLine("Wrong request. Press any key");
                         Console.ReadKey();
@@ -108,20 +103,20 @@ namespace ConsApp_HtmlParser
         }
 
 
-        public static void GetWordsList()
-        {
-            using (var db = new WordsContext())
-            {
-                var WordsList = db.WordDetails;
-                if (WordsList != null)
-                {
-                    Console.WriteLine("\nList of words:");
-                    int i = 0;
-                    Dictionary<int, string> WordsDictionary = new Dictionary<int, string>();
-                    foreach (var WordDetail in WordsList)
-                }
-            }
-        }
+        //public static void GetWordsList()
+        //{
+        //    using (var db = new WordsContext())
+        //    {
+        //        var WordsList = db.WordDetails;
+        //        if (WordsList != null)
+        //        {
+        //            Console.WriteLine("\nList of words:");
+        //            int i = 0;
+        //            Dictionary<int, string> WordsDictionary = new Dictionary<int, string>();
+        //            foreach (var WordDetail in WordsList)
+        //        }
+        //    }
+        //}
 
 
 

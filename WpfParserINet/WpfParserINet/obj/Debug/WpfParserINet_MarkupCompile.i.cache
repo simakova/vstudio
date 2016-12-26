@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\projects\visualstudio\WpfParserINet\WpfParserINet\obj\Debug\
+C:\my-projects\vstudio\WpfParserINet\WpfParserINet\obj\Debug\
 WpfParserINet
 none
 false
 DEBUG;TRACE
-C:\projects\visualstudio\WpfParserINet\WpfParserINet\App.xaml
+C:\my-projects\vstudio\WpfParserINet\WpfParserINet\App.xaml
 11151548125
 29-883300678
 9-1449354368
-70903331645
+70-556190301
 MainWindow.xaml;
 
-True
+False
 

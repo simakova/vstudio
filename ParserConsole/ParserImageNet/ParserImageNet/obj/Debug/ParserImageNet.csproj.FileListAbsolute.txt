@@ -13,3 +13,24 @@ C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\WebDri
 C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\WebDriver.Support.xml
 C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\LiteDB.Core.dll
 C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\LiteDB.Platform.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\ParserImageNet.exe.config
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\obj\Debug\ParserImageNet.exe
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\obj\Debug\ParserImageNet.pdb
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\obj\Debug\ParserImageNet.csprojResolveAssemblyReference.cache
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\ParserImageNet.exe
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\ParserImageNet.pdb
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\EntityFramework.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\EntityFramework.SqlServer.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\HtmlAgilityPack.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\LiteDB.Core.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\LiteDB.Platform.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\MySql.Data.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\MySql.Data.Entity.EF6.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\WebDriver.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\WebDriver.Support.dll
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\EntityFramework.xml
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\EntityFramework.SqlServer.xml
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\HtmlAgilityPack.pdb
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\HtmlAgilityPack.xml
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\WebDriver.xml
+C:\my-projects\vstudio\ParserConsole\ParserImageNet\ParserImageNet\bin\Debug\WebDriver.Support.xml
