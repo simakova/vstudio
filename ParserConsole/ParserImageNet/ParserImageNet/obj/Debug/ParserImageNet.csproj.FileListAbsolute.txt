@@ -1,0 +1,15 @@
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\ParserImageNet.exe.config
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\ParserImageNet.exe
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\ParserImageNet.pdb
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\HtmlAgilityPack.dll
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\HtmlAgilityPack.pdb
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\HtmlAgilityPack.xml
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\obj\Debug\ParserImageNet.csprojResolveAssemblyReference.cache
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\obj\Debug\ParserImageNet.exe
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\obj\Debug\ParserImageNet.pdb
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\WebDriver.dll
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\WebDriver.Support.dll
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\WebDriver.xml
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\WebDriver.Support.xml
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\LiteDB.Core.dll
+C:\projects\visualstudio\2 Parser\ParserImageNet\ParserImageNet\bin\Debug\LiteDB.Platform.dll

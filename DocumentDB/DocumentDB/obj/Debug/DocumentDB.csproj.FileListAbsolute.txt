@@ -1,0 +1,12 @@
+C:\projects\visualstudio\DocumentDB\DocumentDB\bin\Debug\DocumentDB.exe.config
+C:\projects\visualstudio\DocumentDB\DocumentDB\bin\Debug\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\projects\visualstudio\DocumentDB\DocumentDB\bin\Debug\DocumentDB.Spatial.Sql.dll
+C:\projects\visualstudio\DocumentDB\DocumentDB\bin\Debug\DocumentDB.exe
+C:\projects\visualstudio\DocumentDB\DocumentDB\bin\Debug\DocumentDB.pdb
+C:\projects\visualstudio\DocumentDB\DocumentDB\bin\Debug\Microsoft.Azure.Documents.Client.dll
+C:\projects\visualstudio\DocumentDB\DocumentDB\bin\Debug\Newtonsoft.Json.dll
+C:\projects\visualstudio\DocumentDB\DocumentDB\bin\Debug\Microsoft.Azure.Documents.Client.xml
+C:\projects\visualstudio\DocumentDB\DocumentDB\bin\Debug\Newtonsoft.Json.xml
+C:\projects\visualstudio\DocumentDB\DocumentDB\obj\Debug\DocumentDB.csprojResolveAssemblyReference.cache
+C:\projects\visualstudio\DocumentDB\DocumentDB\obj\Debug\DocumentDB.exe
+C:\projects\visualstudio\DocumentDB\DocumentDB\obj\Debug\DocumentDB.pdb
