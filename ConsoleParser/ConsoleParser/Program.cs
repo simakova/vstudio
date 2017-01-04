@@ -24,8 +24,7 @@ namespace ConsoleParser
 
                 Console.Clear();
                 Console.WriteLine("1. Enter the WordNet ID to download the mapping between WordNet ID and words" + "\n" +
-                                    "2. Enter the word to find the description and other details" + "\n" +
-                                    "Enter the number do you prefer" + "\n");
+                                  "2. Enter the word to find the description and other details");
 
                 switch (Console.ReadLine()) {
                     case "1":
@@ -54,101 +53,109 @@ namespace ConsoleParser
 
         public static void GetWordOfID(string id) {
 
-            WebRequest req = WebRequest.Create("http://www.image-net.org/api/text/wordnet.synset.getwords?wnid=n" + id);
+            try {
+                WebRequest req = WebRequest.Create("http://www.image-net.org/api/text/wordnet.synset.getwords?wnid=n" + id);
+                req.Credentials = CredentialCache.DefaultCredentials;
 
-            req.Credentials = CredentialCache.DefaultCredentials;
+                HttpWebResponse res = (HttpWebResponse)req.GetResponse();
 
-            HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+                Stream data = res.GetResponseStream();
 
-            Stream data = res.GetResponseStream();
+                StreamReader reader = new StreamReader(data);
+                string line = reader.ReadToEnd();
 
-            StreamReader reader = new StreamReader(data);
+                Console.WriteLine(id + "\n" + line);
+            }
 
-            string line = reader.ReadToEnd();
+            catch (ArgumentException e) {
+                Console.WriteLine("Error in Web Request");
+                
+                //reader.Close();
+                //data.Close();
+            }
 
-            Console.WriteLine(id + "\n" + line);
 
-            //reader.Close();
-
-            //data.Close();
         }
+        
+        public static void GetInfoOfWord(string word) {
+
+            try {
+                XmlTextReader structure = new XmlTextReader(@"http://www.image-net.org/api/xml/structure_released.xml");
+                structure.WhitespaceHandling = WhitespaceHandling.None;
+
+                while (structure.Read()) {
+
+                    if (structure.MoveToAttribute("words") && structure.Value.Contains(word)) {
+
+                        structure.MoveToAttribute("wnid");
+                        string wnid = structure.Value;
+                        Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + wnid);
+                        //structure.MoveToAttribute("gloss");
+                        //string gloss = structure.Value;
+                        //Console.WriteLine("Description: " + "\t" + gloss);
+
+                        WebClient client = new WebClient();
+                        //client.Encoding = Encoding.GetEncoding("utf-8");
+                        string details = client.DownloadString("http://image-net.org/__viz/getControlDetails.php?wnid=" + wnid);
+
+                        HtmlDocument doc = new HtmlDocument();
+                        doc.LoadHtml(details);
+
+                        HtmlNode catName = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[1]");
+                        Console.WriteLine("Word is from category:" + "\t" + "| " + catName.InnerText);
+
+                        HtmlNode description = doc.DocumentNode.SelectSingleNode("//table/tr[2]/td[1]");
+                        Console.WriteLine("Description:" + "\t" + "\t" + "| " + description.InnerText);
+
+                        HtmlNode count = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[2]");
+                        Console.WriteLine("Count of pictures:" + "\t" + "| " + count.InnerText);
+
+                        HtmlNode percent = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[3]");
+                        Console.WriteLine("Popularity Percentile:" + "\t" + "| " + percent.InnerText);
+
+                        Console.WriteLine("\n" + "Hyponims: " + "\n");
+
+                        WebRequest req2 = WebRequest.Create("http://image-net.org/api/text/wordnet.structure.hyponym?wnid=" + wnid);
+                        req2.Credentials = CredentialCache.DefaultCredentials;
+
+                        HttpWebResponse res2 = (HttpWebResponse)req2.GetResponse();
+                        Stream dataID = res2.GetResponseStream();
+
+                        StreamReader reader2 = new StreamReader(dataID);
+
+                        List<string> idStorage = new List<string>();
+
+                        string lineID;
 
 
-        public static void GetInfoOfWord(string word)  {
-            XmlTextReader structure = new XmlTextReader(@"http://www.image-net.org/api/xml/structure_released.xml");
-            structure.WhitespaceHandling = WhitespaceHandling.None;
+                        //заполнение массива
 
-            while (structure.Read()) {
-                if (structure.MoveToAttribute("words") && structure.Value.Contains(word)) {
-                    structure.MoveToAttribute("wnid");
-                    string wnid = structure.Value;
-                    Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + wnid);
-                    //structure.MoveToAttribute("gloss");
-                    //string gloss = structure.Value;
-                    //Console.WriteLine("Description: " + "\t" + gloss);
+                        while ((lineID = reader2.ReadLine()) != null) {
+                            string ids = lineID.Substring(0);
+                            idStorage.Add(ids);
+                        }
 
-                    WebClient client = new WebClient();
-                    //client.Encoding = Encoding.GetEncoding("utf-8");
-                    string details = client.DownloadString("http://image-net.org/__viz/getControlDetails.php?wnid=" + wnid);
+                        int i = 1;
+                        while (i < idStorage.Count) {
+                            var idd = idStorage[i].Substring(2);
+                            GetWordOfID(idd);
+                            i++;
+                        }
 
-                    HtmlDocument doc = new HtmlDocument();
-                    doc.LoadHtml(details);
+                        Console.WriteLine("More (press press any key)" + "\n" + "Menu (press esc)" + "\n");
 
-                    HtmlNode catName = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[1]");
-                    Console.WriteLine("Word is from category:" + "\t" + "| " + catName.InnerText);
-
-                    HtmlNode description = doc.DocumentNode.SelectSingleNode("//table/tr[2]/td[1]");
-                    Console.WriteLine("Description:" + "\t" + "\t" + "| " + description.InnerText);
-
-                    HtmlNode count = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[2]");
-                    Console.WriteLine("Count of pictures:" + "\t" + "| " + count.InnerText);
-
-                    HtmlNode percent = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[3]");
-                    Console.WriteLine("Popularity Percentile:" + "\t" + "| " + percent.InnerText);
-
-                    Console.WriteLine("\n" + "Hyponims: " + "\n");
-
-                    WebRequest req2 = WebRequest.Create("http://image-net.org/api/text/wordnet.structure.hyponym?wnid=" + wnid);
-
-                    req2.Credentials = CredentialCache.DefaultCredentials;
-
-                    HttpWebResponse res2 = (HttpWebResponse)req2.GetResponse();
-
-                    Stream dataID = res2.GetResponseStream();
-
-                    StreamReader reader2 = new StreamReader(dataID);
-
-                    List<string> idStorage = new List<string>();
-
-                    string lineID;
-
-
-                    //заполнение массива
-
-                    while ((lineID = reader2.ReadLine()) != null) {
-                        string ids = lineID.Substring(0);
-                        idStorage.Add(ids);
+                        if (Console.ReadKey().Key == ConsoleKey.Escape) {
+                            break;
+                        }
+                        else
+                            continue;
                     }
-
-                    int i = 1;
-                    while (i < idStorage.Count) {
-                        var idd = idStorage[i].Substring(2);
-                        GetWordOfID(idd);
-                        i++;
-
-                    }
-                    Console.WriteLine("More (press press any key)" + "\n" + "Menu (press esc)" + "\n");
-
-                    if (Console.ReadKey().Key == ConsoleKey.Escape) {
-                        break;
-                    }
-                    else
-                        continue;
-
                 }
             }
+            catch (ArgumentException e) {
+                Console.WriteLine("Error in XML Reader");
+            }
         }
-
     }
 }
 
