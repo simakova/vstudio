@@ -86,15 +86,6 @@ namespace ConsoleParserLDB
                         StreamReader reader = new StreamReader(data);
                         string line = reader.ReadToEnd();
 
-                        //Console.WriteLine(id + "\n" + line);
-
-                        //var collection = db.GetCollection<Word>("words");
-
-                        //var newWord = new Word { Name = line, Wnid = "n" + id };
-                        //var collectionW = db.GetCollection<Word>("words");
-                        //collection.Insert(newWord);
-                        // collectionW.Update(newWord);
-                        //collection.EnsureIndex(x => x.Name);
                         return line;
                     }
 
@@ -108,7 +99,6 @@ namespace ConsoleParserLDB
                 }
                 else
                     return GetInfoFromLDB(result, "word");
-                   // Console.WriteLine(result.Name + " " + "(from DB)");
             }
             return "Error";
         }
@@ -136,19 +126,8 @@ namespace ConsoleParserLDB
 
                                 structure.MoveToAttribute("wnid");
                                 string wnid = structure.Value;
-                                //Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + wnid);
-                                //structure.MoveToAttribute("gloss");
-                                //string gloss = structure.Value;
-                                //Console.WriteLine("Description: " + "\t" + gloss);
-
-                                //var collection = db.GetCollection<Word>("words");
-
-                                //var newWord = new Word { Name = word, Wnid = wnid };
-                                //var collectionW = db.GetCollection<Word>("words");
-                                //collection.Insert(newWord);
+                               
                                 return wnid;
-                                // collectionW.Update(newWord);
-                                //collection.EnsureIndex(x => x.Name);
                             }
                         }
                     }
@@ -163,8 +142,6 @@ namespace ConsoleParserLDB
                 }
                 else {
                     return GetInfoFromLDB(result, "id");
-                    
-                    // Console.WriteLine(result.Name + " " + "(from DB)");
                 }
            }
             return "Error";
@@ -190,15 +167,7 @@ namespace ConsoleParserLDB
 
                             if (structure.MoveToAttribute("wnid") && structure.Value.Contains(wnid))
                             {
-
-                                //structure.MoveToAttribute("wnid");
-                                //string wnid = structure.Value;
-                                //Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + wnid);
-                                ////structure.MoveToAttribute("gloss");
-                                ////string gloss = structure.Value;
-                                ////Console.WriteLine("Description: " + "\t" + gloss);
                                 Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + wnid);
-                                //Console.WriteLine("\n" + word);
                                 WebClient client = new WebClient();
                                 //client.Encoding = Encoding.GetEncoding("utf-8");
                                 string details = client.DownloadString("http://image-net.org/__viz/getControlDetails.php?wnid=" + wnid);
@@ -217,8 +186,6 @@ namespace ConsoleParserLDB
 
                                 HtmlNode percent = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[3]");
                                 Console.WriteLine("Popularity Percentile:" + "\t" + "| " + percent.InnerText);
-
-                                //var collectionW = db.GetCollection<Word>("words");
 
                                 var newWord = new Word
                                 {
@@ -282,8 +249,7 @@ namespace ConsoleParserLDB
                 }
                 else
                     GetInfoFromLDB(result, "info");
-                    //Console.WriteLine(result.Category+" " + result.Description + " " + result.Count+" " + result.Popularity+" " + "(from DB)");
-            }
+             }
         }
 
         public static string GetInfoFromLDB(Word r, string key)
@@ -312,71 +278,18 @@ namespace ConsoleParserLDB
             using (var db = new LiteDatabase((@"WordData.db"))) {
                 var collection = db.GetCollection<Word>("words");
                 var result = collection.FindAll();
+                collection.EnsureIndex(x => x.Wnid);
                 foreach (Word w in result)
                 {
-                    //Console.WriteLine(w.Name);
-                    //foreach (Detail d in w.Details) {
                     Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + w.Wnid);
                     Console.WriteLine("Word is from category:" + "\t" + "| " + w.Category);
                     Console.WriteLine("Description:" + "\t" + "\t" + "| " + w.Description);
                     Console.WriteLine("Count of pictures:" + "\t" + "| " + w.Count);
                     Console.WriteLine("Popularity Percentile:" + "\t" + "| " + w.Popularity);
-                    //}
                 }
            }
         }
-       
-        //public static void ViewCollection()
-        //{
-        //    using (var db = new LiteDatabase(@"MyData.db"))
-        //    {
-        //        // Получаем коллекцию
-        //        var col = db.GetCollection<Company>("companies");
-
-        //        var microsoft = new Company { Name = "Microsoft" };
-        //        microsoft.Users = new List<User> { new User { Name = "Bill Gates" } };
-
-        //        // Добавляем компанию в коллекцию
-        //        col.Insert(microsoft);
-
-        //        // Обновляем документ в коллекции
-        //        microsoft.Name = "Microsoft Inc.";
-        //        col.Update(microsoft);
-
-
-        //        var google = new Company { Name = "Google" };
-        //        google.Users = new List<User> { new User { Name = "Larry Page" } };
-        //        col.Insert(google);
-
-        //        // Получаем все документы
-        //        var result = col.FindAll();
-        //        foreach (Company c in result)
-        //        {
-        //            Console.WriteLine(c.Name);
-        //            foreach (User u in c.Users)
-        //                Console.WriteLine(u.Name);
-        //            Console.WriteLine();
-        //        }
-
-        //        // Индексируем документ по определенному свойству
-        //        col.EnsureIndex(x => x.Name);
-
-        //        col.Delete(x => x.Name.Equals("Google"));
-
-        //        Console.WriteLine("После удаления Google");
-        //        result = col.FindAll();
-        //        foreach (Company c in result)
-        //        {
-        //            Console.WriteLine(c.Name);
-        //            foreach (User u in c.Users)
-        //                Console.WriteLine(u.Name);
-        //            Console.WriteLine();
-        //        }
-        //    }
-        //    Console.ReadKey();
-            
-        //}
-    }
+   }
 }
 
 
