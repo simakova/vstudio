@@ -107,7 +107,7 @@ namespace ConsoleParserLDB
                     }
                 }
                 else
-                    GetInfoFromLDB();
+                    return GetInfoFromLDB(result, "word");
                    // Console.WriteLine(result.Name + " " + "(from DB)");
             }
             return "Error";
@@ -162,21 +162,21 @@ namespace ConsoleParserLDB
                     }
                 }
                 else {
-                    GetInfoFromLDB();
-                   // Console.WriteLine(result.Name + " " + "(from DB)");
+                    return GetInfoFromLDB(result, "id");
                     
-               }
-            }
+                    // Console.WriteLine(result.Name + " " + "(from DB)");
+                }
+           }
             return "Error";
         }
 
         public static void GetInfoOfWord(string word, string wnid)
         {
-            using (var db = new LiteDatabase((@"WordtData.db")))
+            using (var db = new LiteDatabase((@"WordData.db")))
             {
                 var collection = db.GetCollection<Word>("words");
                 //collection.EnsureIndex(x => x.Name);
-                var result = collection.FindOne(x => x.Name.Equals(wnid));
+                var result = collection.FindOne(x => x.Wnid.Equals(wnid));
 
                 if (result == null)
                 {
@@ -188,7 +188,7 @@ namespace ConsoleParserLDB
                         while (structure.Read())
                         {
 
-                            if (structure.MoveToAttribute("words") && structure.Value.Contains(word))
+                            if (structure.MoveToAttribute("wnid") && structure.Value.Contains(wnid))
                             {
 
                                 //structure.MoveToAttribute("wnid");
@@ -197,7 +197,8 @@ namespace ConsoleParserLDB
                                 ////structure.MoveToAttribute("gloss");
                                 ////string gloss = structure.Value;
                                 ////Console.WriteLine("Description: " + "\t" + gloss);
-
+                                Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + wnid);
+                                //Console.WriteLine("\n" + word);
                                 WebClient client = new WebClient();
                                 //client.Encoding = Encoding.GetEncoding("utf-8");
                                 string details = client.DownloadString("http://image-net.org/__viz/getControlDetails.php?wnid=" + wnid);
@@ -259,7 +260,7 @@ namespace ConsoleParserLDB
                                 while (i < idStorage.Count)
                                 {
                                     var idd = idStorage[i].Substring(2);
-                                    GetWordOfID(idd);
+                                    Console.WriteLine("-" + GetWordOfID(idd));
                                     i++;
                                 }
 
@@ -280,29 +281,49 @@ namespace ConsoleParserLDB
                     }
                 }
                 else
-                    GetInfoFromLDB();
+                    GetInfoFromLDB(result, "info");
                     //Console.WriteLine(result.Category+" " + result.Description + " " + result.Count+" " + result.Popularity+" " + "(from DB)");
             }
         }
 
-        public static void GetInfoFromLDB() {
-
-        }
-        public static void ViewCollection() {
-            var db = new LiteDatabase(@"WordData.db");
-            var collection = db.GetCollection<Word>("words");
-            var result = collection.FindAll();
-            foreach (Word w in result) {
-                Console.WriteLine(w.Name);
-                //foreach (Detail d in w.Details) {
-                Console.WriteLine(w.Wnid);
-                Console.WriteLine(w.Category);
-                Console.WriteLine(w.Description);
-                Console.WriteLine(w.Count);
-                Console.WriteLine(w.Popularity);
-                //}
-                Console.WriteLine();
+        public static string GetInfoFromLDB(Word r, string key)
+        {
+            using (var db = new LiteDatabase((@"WordData.db")))
+            {
+                if (key == "word") {
+                    Console.WriteLine("(from LDB)" + "\n" + r.Name + "\n");
+                    return r.Name;
+                }
+                else if (key == "id") {
+                    Console.WriteLine("(from LDB)" + "\n" + "WNID" + "\t" + "\t" + "\t" + "| " + r.Wnid + "\n");
+                    return r.Wnid;
+                }
+                else  if (key=="info"){
+                    Console.WriteLine("(from LDB)" + "\n" + "Word is from category:" + "\t" + "| " + r.Category + "\n" +
+                    "Description:" + "\t" + "\t" + "| " + r.Description + "\n" +
+                    "Count of pictures:" + "\t" + "| " + r.Count + "\n" +
+                    "Popularity Percentile:" + "\t" + "| " + r.Popularity);
+                }
             }
+            return "Error";
+        }
+
+        public static void ViewCollection() {
+            using (var db = new LiteDatabase((@"WordData.db"))) {
+                var collection = db.GetCollection<Word>("words");
+                var result = collection.FindAll();
+                foreach (Word w in result)
+                {
+                    //Console.WriteLine(w.Name);
+                    //foreach (Detail d in w.Details) {
+                    Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + w.Wnid);
+                    Console.WriteLine("Word is from category:" + "\t" + "| " + w.Category);
+                    Console.WriteLine("Description:" + "\t" + "\t" + "| " + w.Description);
+                    Console.WriteLine("Count of pictures:" + "\t" + "| " + w.Count);
+                    Console.WriteLine("Popularity Percentile:" + "\t" + "| " + w.Popularity);
+                    //}
+                }
+           }
         }
        
         //public static void ViewCollection()
