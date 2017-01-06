@@ -25,12 +25,12 @@ namespace ConsoleParserLDB
                 
                 while (true) {
                     Console.Clear();
-                    Console.WriteLine("1. Enter the WordNet ID to download the mapping between WordNet ID and words" + "\n" +
+                    Console.WriteLine("1. Enter the WordNet ID to find the description and other details" + "\n" +
                                       "2. Enter the word to find the description and other details" + "\n" +
                                       "3. View collection" + "\n");
 
                     switch (Console.ReadLine()) {
-                        case "1":
+                        case "1": //Поиск информации об изображении по id
                             Console.Clear();
                             Console.Write("Enter any WNID (8-digits number): n");
                             string line1 = Console.ReadLine();
@@ -39,7 +39,7 @@ namespace ConsoleParserLDB
                             Console.ReadKey();
                             break;
 
-                        case "2":
+                        case "2": //Поиск информации об изображении по слову
                             Console.Clear();
                             Console.WriteLine("Enter any word: ");
                             string line2 = Console.ReadLine();
@@ -47,8 +47,7 @@ namespace ConsoleParserLDB
                             Console.ReadKey();
                             break;
 
-                        case "3":
-                        
+                        case "3": //Посмотреть имеющиеся в коллекции данные
                             Console.Clear();
                             ViewCollection();
                             Console.ReadKey();
@@ -56,26 +55,23 @@ namespace ConsoleParserLDB
 
                         
                         default:
-                                Console.WriteLine("Wrong request. Press any key");
-                                Console.ReadKey();
-                                break;
+                           Console.WriteLine("Wrong request. Press any key");
+                           Console.ReadKey();
+                           break;
                  }
                 continue;
             }
            // }
         }
 
-        public static string GetWordOfID(string id) {
-            using (var db = new LiteDatabase(@"WordData.db"))
-            {
+        public static string GetWordOfID(string id) { //Извлекаем слово по ID
+            using (var db = new LiteDatabase(@"WordData.db")) {
                 var collection = db.GetCollection<Word>("words");
                 //collection.EnsureIndex(x => x.Name);
                 var result = collection.FindOne(x => x.Wnid.Equals("n"+id));
 
-                if (result == null)
-                {
-                    try
-                    {
+                if (result == null) {//Если слова нет в коллекции
+                    try {
                         WebRequest req = WebRequest.Create("http://www.image-net.org/api/text/wordnet.synset.getwords?wnid=n" + id);
                         req.Credentials = CredentialCache.DefaultCredentials;
 
@@ -89,10 +85,9 @@ namespace ConsoleParserLDB
                         return line;
                     }
 
-                    catch (ArgumentException e)
-                    {
+                    catch (ArgumentException e) {
                         Console.WriteLine("Error in Web Request" + "/n" + e);
-
+                        Console.WriteLine();
                         //reader.Close();
                         //data.Close();
                     }
@@ -103,26 +98,20 @@ namespace ConsoleParserLDB
             return "Error";
         }
 
-        public static string GetIDOfWord(string word)
+        public static string GetIDOfWord(string word) //Извлекаем ID по слову
         {
-            using (var db = new LiteDatabase(@"WordData.db"))
-            {
+            using (var db = new LiteDatabase(@"WordData.db")) {
                 var collection = db.GetCollection<Word>("words");
                 //collection.EnsureIndex(x => x.Name);
                 var result = collection.FindOne(x => x.Name.Equals(word));
 
-                if (result == null)
-                {
-                    try
-                    {
+                if (result == null) { //Если слова нет в коллекции
+                    try  {
                         XmlTextReader structure = new XmlTextReader(@"http://www.image-net.org/api/xml/structure_released.xml");
                         structure.WhitespaceHandling = WhitespaceHandling.None;
 
-                        while (structure.Read())
-                        {
-
-                            if (structure.MoveToAttribute("words") && structure.Value.Contains(word))
-                            {
+                        while (structure.Read())  { //пока XML читается, то находим введенное слово и соответствующий к нему id
+                            if (structure.MoveToAttribute("words") && structure.Value.Contains(word)) {
 
                                 structure.MoveToAttribute("wnid");
                                 string wnid = structure.Value;
@@ -132,8 +121,7 @@ namespace ConsoleParserLDB
                         }
                     }
 
-                    catch (ArgumentException e)
-                    {
+                    catch (ArgumentException e) {
                         Console.WriteLine("Error in Web Request" + "/n" + e);
                        
                         //reader.Close();
@@ -147,26 +135,21 @@ namespace ConsoleParserLDB
             return "Error";
         }
 
-        public static void GetInfoOfWord(string word, string wnid)
-        {
-            using (var db = new LiteDatabase((@"WordData.db")))
-            {
+        public static void GetInfoOfWord(string word, string wnid) { // извлечение дополнительной информации по каждому слову 
+            using (var db = new LiteDatabase((@"WordData.db"))) {
                 var collection = db.GetCollection<Word>("words");
+                //var collection2 = db.GetCollection<Hyponim>("hyponims");
                 //collection.EnsureIndex(x => x.Name);
                 var result = collection.FindOne(x => x.Wnid.Equals(wnid));
 
-                if (result == null)
-                {
-                    try
-                    {
+                if (result == null) { //если искомого слова нет в коллекции
+                    try {
                         XmlTextReader structure = new XmlTextReader(@"http://www.image-net.org/api/xml/structure_released.xml");
                         structure.WhitespaceHandling = WhitespaceHandling.None;
 
-                        while (structure.Read())
-                        {
+                        while (structure.Read()) {
 
-                            if (structure.MoveToAttribute("wnid") && structure.Value.Contains(wnid))
-                            {
+                            if (structure.MoveToAttribute("wnid") && structure.Value.Contains(wnid)) {
                                 Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + wnid);
                                 WebClient client = new WebClient();
                                 //client.Encoding = Encoding.GetEncoding("utf-8");
@@ -187,8 +170,7 @@ namespace ConsoleParserLDB
                                 HtmlNode percent = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[3]");
                                 Console.WriteLine("Popularity Percentile:" + "\t" + "| " + percent.InnerText);
 
-                                var newWord = new Word
-                                {
+                                var newWord = new Word {
                                     Name = word,
                                     Wnid = wnid,
                                     Category = catName.InnerText,
@@ -197,7 +179,7 @@ namespace ConsoleParserLDB
                                     Popularity = percent.InnerText
                                 };
 
-                                collection.Insert(newWord);
+                                //collection.Insert(newWord);
                                 //collection.Update(newWord);
 
                                 Console.WriteLine("\n" + "Hyponims: " + "\n");
@@ -214,36 +196,43 @@ namespace ConsoleParserLDB
 
                                 string lineID;
 
+                                //заполнение массива id Hyponims
 
-                                //заполнение массива
-
-                                while ((lineID = reader2.ReadLine()) != null)
-                                {
+                                while ((lineID = reader2.ReadLine()) != null) {
                                     string ids = lineID.Substring(0);
                                     idStorage.Add(ids);
                                 }
 
                                 int i = 1;
-                                while (i < idStorage.Count)
-                                {
+                                newWord.Hyponims = new List<Hyponim> { };
+
+                                // поиск соответствующего id слова
+                                while (i < idStorage.Count) {
                                     var idd = idStorage[i].Substring(2);
-                                    Console.WriteLine("-" + GetWordOfID(idd));
+                                    string findWord = GetWordOfID(idd);
+                                    Console.WriteLine("- "  + findWord);
+                                    var newHyp = new Hyponim() { Wnid = idd, Name = findWord };
+                                    newWord.Hyponims.Add(newHyp);
+                                    
+                                    //collection.EnsureIndex(x => x.Name);
                                     i++;
                                 }
+                                collection.Insert(newWord);
 
-                                Console.WriteLine("More (press press any key)" + "\n" + "Menu (press esc)" + "\n");
-
+                                Console.WriteLine("Press any key to return");
                                 if (Console.ReadKey().Key == ConsoleKey.Escape)
                                     break;
+                                //Console.WriteLine("More (press press any key)" + "\n" + "Menu (press esc)" + "\n");
 
-                                else
-                                    continue;
+                                //if (Console.ReadKey().Key == ConsoleKey.Escape)
+                                //    break;
+
+                                //else
+                                //    continue;
                             }
-
                         }
                     }
-                    catch (ArgumentException e)
-                    {
+                    catch (ArgumentException e) {
                         Console.WriteLine("Error in XML Reader");
                     }
                 }
@@ -252,10 +241,8 @@ namespace ConsoleParserLDB
              }
         }
 
-        public static string GetInfoFromLDB(Word r, string key)
-        {
-            using (var db = new LiteDatabase((@"WordData.db")))
-            {
+        public static string GetInfoFromLDB(Word r, string key) { //извлечение информации о слове из кэша
+            using (var db = new LiteDatabase((@"WordData.db"))) {
                 if (key == "word") {
                     Console.WriteLine("(from LDB)" + "\n" + r.Name + "\n");
                     return r.Name;
@@ -264,28 +251,35 @@ namespace ConsoleParserLDB
                     Console.WriteLine("(from LDB)" + "\n" + "WNID" + "\t" + "\t" + "\t" + "| " + r.Wnid + "\n");
                     return r.Wnid;
                 }
-                else  if (key=="info"){
+                else  if (key=="info") {
                     Console.WriteLine("(from LDB)" + "\n" + "Word is from category:" + "\t" + "| " + r.Category + "\n" +
                     "Description:" + "\t" + "\t" + "| " + r.Description + "\n" +
                     "Count of pictures:" + "\t" + "| " + r.Count + "\n" +
-                    "Popularity Percentile:" + "\t" + "| " + r.Popularity);
-                }
+                    "Popularity Percentile:" + "\t" + "| " + r.Popularity+
+                    "Hyponims:" + "\t" + "| ");
+                    foreach (Hyponim h in r.Hyponims)
+                        Console.WriteLine("- " + h.Wnid + " " + h.Name);
+                    Console.WriteLine("Press press any key to return" + "\n" );
+               }
             }
             return "Error";
         }
 
-        public static void ViewCollection() {
+        public static void ViewCollection() { // просмотр коллекции
             using (var db = new LiteDatabase((@"WordData.db"))) {
                 var collection = db.GetCollection<Word>("words");
                 var result = collection.FindAll();
                 collection.EnsureIndex(x => x.Wnid);
-                foreach (Word w in result)
-                {
+                foreach (Word w in result) {
                     Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + w.Wnid);
                     Console.WriteLine("Word is from category:" + "\t" + "| " + w.Category);
                     Console.WriteLine("Description:" + "\t" + "\t" + "| " + w.Description);
                     Console.WriteLine("Count of pictures:" + "\t" + "| " + w.Count);
-                    Console.WriteLine("Popularity Percentile:" + "\t" + "| " + w.Popularity);
+                    Console.WriteLine("Popularity Percentile:" + "\t" + "| " + w.Popularity + "\n");
+                    Console.WriteLine("Hyponims:" + "\t" + "| "+"\n");
+                    foreach (Hyponim h in w.Hyponims)
+                        Console.WriteLine("- " + h.Wnid + " " + h.Name);
+                    Console.WriteLine("More (press press any key)" + "\n" + "Menu (press esc)" + "\n");
                 }
            }
         }
