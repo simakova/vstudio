@@ -32,8 +32,8 @@ namespace ConsoleParserLDB
                 Console.Clear();
                 Console.WriteLine("1. Enter the WordNet ID to find the description and other details" + "\n" +
                                   "2. Enter the word to find the description and other details" + "\n" +
-                                  "3. View objects of LDB" + "\n" +
-                                  "4. View objects of SQL" + "\n");
+                                  "3. View objects on LDB" + "\n" +
+                                  "4. View objects on SQLDB" + "\n");
 
                 switch (Console.ReadLine()) {
                     case "1": //Поиск информации о группе изображений по id
@@ -234,10 +234,13 @@ namespace ConsoleParserLDB
                                     i++;
                                 }
                                 Console.WriteLine("Save to LDB...");
-                                SaveToLDB(word, wnid, catName.InnerText, description.InnerText, count.InnerText, percent.InnerText, idStorage, wordStorage);
+                                SaveToLDB(word, wnid, catName.InnerText, description.InnerText, count.InnerText, 
+                                    percent.InnerText, idStorage, wordStorage);
 
                                 Console.WriteLine("Save to SQL...");
-                                SaveToSQL(word, wnid, catName.InnerText, description.InnerText, count.InnerText, percent.InnerText, idStorage, wordStorage);
+                                SaveToSQL(word, wnid, catName.InnerText, description.InnerText, count.InnerText, 
+                                    percent.InnerText, idStorage, wordStorage);
+
                                 Console.WriteLine("Press any key to return");
                                 //if (Console.ReadKey().Key == ConsoleKey.Escape)
                                 //    break;
@@ -374,19 +377,19 @@ namespace ConsoleParserLDB
                         Popularity = percent
                     };
 
-                    //newWord.Hyponims = new List<Hyponim> { };
-                    //int i = 1;
+                    newWd.HiponimModels = new List<HyponimModel> { };
+                    int i = 1;
 
-                    //while (i < wordStorage.Count)
-                    //{
-                    //    var idd = idStorage[i].Substring(2);
-                    //    var hyp = wordStorage[i].Substring(0);
-                    //    var newHyp = new Hyponim() { Wnid = idd, Name = hyp };
-                    //    newWord.Hyponims.Add(newHyp);
+                    while (i < wordStorage.Count)
+                    {
+                        var idd = idStorage[i].Substring(2);
+                        var hyp = wordStorage[i].Substring(0);
+                        var newHyp = new HyponimModel() { Wnid = idd, Name = hyp };
+                        newWd.HiponimModels.Add(newHyp);
 
-                    //    //collection.EnsureIndex(x => x.Name);
-                    //    i++;
-                    //}
+                        //collection.EnsureIndex(x => x.Name);
+                        i++;
+                    }
 
                     db.WordModels.Add(newWd);
                     db.SaveChanges();
@@ -407,7 +410,7 @@ namespace ConsoleParserLDB
                 Console.WriteLine("Список объектов:");
                 foreach (WordModel w in words)
                 {
-                    Console.WriteLine("{0}.{1} - {3} ({4},{5},{6}) ", w.Id, w.Wnid, w.Name, w.Category, w.Description, w.Count, w.Popularity);
+                    Console.WriteLine("{0}.{1} - {3} \n (Count: {5}, Popularity: {6}) \n Description: {4}", w.Id, w.Wnid, w.Name, w.Category, w.Description, w.Count, w.Popularity);
                 }
             }
             Console.Read();
@@ -417,7 +420,7 @@ namespace ConsoleParserLDB
 
 
 
-        //  //!!!!!!!!!!!!!!!!Вариант с txt!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!Вариант с txt!!!!!!!!!!!!!!!!!
 
 
 //  /*//words.txt

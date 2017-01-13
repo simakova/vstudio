@@ -11,6 +11,6 @@ namespace ConsoleParserLDB
         { }
 
         public DbSet<WordModel> WordModels { get; set; }
-
+        public DbSet<HyponimModel> HyponimModels { get; set; }
     }
 }
