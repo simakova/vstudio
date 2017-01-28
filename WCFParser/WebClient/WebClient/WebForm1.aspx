@@ -10,35 +10,38 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    <table>
+        <table>
             <tr>
-                <td> WNID</td>
-                <td> <asp:TextBox ID="txtWnid" runat="server"></asp:TextBox></td>
-            </tr>
-            <tr>
-                <td> Name</td>
-                <td> <asp:TextBox ID="txtName" runat="server"></asp:TextBox></td>
+                <td>WNID</td>
+                <td><asp:TextBox ID="txtWnid" runat="server"></asp:TextBox></td>
             </tr>
             <tr>
-                <td> Category</td>
-                <td> <asp:TextBox ID="txtCategory" runat="server"></asp:TextBox></td>
+                <td>Name</td>
+                <td><asp:TextBox ID="txtName" runat="server"></asp:TextBox></td>
             </tr>
             <tr>
-                <td> Description</td>
-                <td> <asp:TextBox ID="txtGloss" runat="server"></asp:TextBox></td>
+                <td>Category</td>
+                <td><asp:TextBox ID="txtCategory" runat="server"></asp:TextBox></td>
             </tr>
             <tr>
-                <td> Count of pictures </td>
-                <td> <asp:TextBox ID="txtCount" runat="server"></asp:TextBox></td>
+                <td>Description</td>
+                <td><asp:TextBox ID="txtDescription" runat="server"></asp:TextBox></td>
             </tr>
             <tr>
-                <td> Popularity</td>
-                <td> <asp:TextBox ID="txtPopularity" runat="server"></asp:TextBox></td>
+                <td>Count</td>
+                <td><asp:TextBox ID="txtCount" runat="server"></asp:TextBox></td>
             </tr>
-             <tr>
-                <td><asp:Button ID="btnGetWord" runat="server" Text="Get Word" OnClick="btnGetWord_Click" /></td>
-                <td><asp:Button ID="btnSetWord" runat="server" Text="Set Word" OnClick="btnSetWord_Click" /></td>
+            <tr>
+                <td>Popularity</td>
+                <td><asp:TextBox ID="txtPopularity" runat="server"></asp:TextBox></td>
             </tr>
+        </table>
+       <table>
+            <tr>
+                <td><asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" /></td>
+                <td><asp:Button ID="btnFindWord" runat="server" Text="Find Word" OnClick="btnFindWord_Click" /></td>
+                <td><asp:Button ID="btnTestWord" runat="server" Text="Test Word" OnClick="btnTestWord_Click" /></td>
+           </tr>
         </table>
     </div>
     </form>

@@ -12,9 +12,10 @@ namespace ImageService
     public interface IImageService
     {
         [OperationContract]
-        void SetWord(); //принимает на вход экземпляр класса Word и записывает его в XML документ
+        Word TestWord(); //принимает на вход экземпляр класса Word и записывает его в XML документ
 
         [OperationContract]
-        Word GetWord(string word, string key); //принимает на вход ключ, определяющий тип поиска слова и возвращает экземпляр Word
+        Word FindWord(string line, string key); //принимает на вход ключ, определяющий тип поиска слова и возвращает экземпляр Word
+
     }
 }

@@ -7,32 +7,32 @@
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ImageService" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IImageService_SetWord_InputMessage">
-    <wsdl:part name="parameters" element="tns:SetWord" />
+  <wsdl:message name="IImageService_TestWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:TestWord" />
   </wsdl:message>
-  <wsdl:message name="IImageService_SetWord_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SetWordResponse" />
+  <wsdl:message name="IImageService_TestWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestWordResponse" />
   </wsdl:message>
-  <wsdl:message name="IImageService_GetWord_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetWord" />
+  <wsdl:message name="IImageService_FindWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindWord" />
   </wsdl:message>
-  <wsdl:message name="IImageService_GetWord_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetWordResponse" />
+  <wsdl:message name="IImageService_FindWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindWordResponse" />
   </wsdl:message>
   <wsdl:portType name="IImageService">
-    <wsdl:operation name="SetWord">
-      <wsdl:input wsaw:Action="http://tempuri.org/IImageService/SetWord" message="tns:IImageService_SetWord_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IImageService/SetWordResponse" message="tns:IImageService_SetWord_OutputMessage" />
+    <wsdl:operation name="TestWord">
+      <wsdl:input wsaw:Action="http://tempuri.org/IImageService/TestWord" message="tns:IImageService_TestWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IImageService/TestWordResponse" message="tns:IImageService_TestWord_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetWord">
-      <wsdl:input wsaw:Action="http://tempuri.org/IImageService/GetWord" message="tns:IImageService_GetWord_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IImageService/GetWordResponse" message="tns:IImageService_GetWord_OutputMessage" />
+    <wsdl:operation name="FindWord">
+      <wsdl:input wsaw:Action="http://tempuri.org/IImageService/FindWord" message="tns:IImageService_FindWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IImageService/FindWordResponse" message="tns:IImageService_FindWord_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IImageService" type="tns:IImageService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="SetWord">
-      <soap:operation soapAction="http://tempuri.org/IImageService/SetWord" style="document" />
+    <wsdl:operation name="TestWord">
+      <soap:operation soapAction="http://tempuri.org/IImageService/TestWord" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -40,8 +40,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetWord">
-      <soap:operation soapAction="http://tempuri.org/IImageService/GetWord" style="document" />
+    <wsdl:operation name="FindWord">
+      <soap:operation soapAction="http://tempuri.org/IImageService/FindWord" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

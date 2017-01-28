@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using System.Xml.Linq;
 using System.Configuration;
 using HtmlAgilityPack;
 using System.Xml;
@@ -17,46 +16,18 @@ namespace ImageService
     // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени класса "ImageService" в коде и файле конфигурации.
     public class ImageService : IImageService
     {
-        public void SetWord()
+        public Word TestWord()
         {
-            
-
-            //сохранение полей экземпляра класса Word в XMl док-те
-            //var file = ConfigurationManager.AppSettings["fileWord"];
-
-            //var doc = XDocument.Load(file);
-
-            //doc.Root.Add(new XElement("Word", /*new XAttribute("Id", w.Id),*/ new XElement("Wnid", w.Wnid),
-            //    new XElement("Name", w.Name), new XElement("Category", w.Category), new XElement("Description", w.Description),
-            //    new XElement("Count", w.Count), new XElement("Popularity", w.Popularity)));
-
-            //doc.Save(file);
-
+            WordObj = new Word();
+            WordObj.Wnid = "123456";
+            WordObj.Name = "123456789";
+           
+            return WordObj;
 
         }
 
-        public Word GetWord(string line, string key)
+        public Word FindWord(string line, string key)
         {
-
-            //    //считывание из XML файла
-            //    var file = ConfigurationManager.AppSettings["fileWord"];
-            //    var result = new Word();
-
-            //    var doc = XDocument.Load(file);
-
-            //    var element = doc.Descendants("Word").FirstOrDefault(x => x.Element("Wnid").Value == wnid.ToString());
-
-            //    //result.Id = int.Parse(element.Attribute("Id").Value);
-            //    result.Wnid = element.Element("Wnid").Value;
-            //    result.Name = element.Element("Name").Value;
-            //    result.Category = element.Element("Category").Value;
-            //    result.Description= element.Element("Description").Value;
-            //    result.Count = element.Element("Count").Value;
-            //    result.Popularity = element.Element("Popularity").Value;
-
-            //    return result;
-            //}
-
             WordObj = new Word
             {
                 Wnid = "",
@@ -66,7 +37,7 @@ namespace ImageService
             {
                 WordObj.Wnid = line;
                 WordObj.Name = GetWordOfID(line);
-               
+
             }
             else if (key == "fromWord")
             {
@@ -77,6 +48,7 @@ namespace ImageService
             return WordObj;
 
         }
+
         public Word WordObj { get; set; }
 
         public string GetWordOfID(string id)
@@ -212,3 +184,5 @@ namespace ImageService
         }
     }
 }
+
+

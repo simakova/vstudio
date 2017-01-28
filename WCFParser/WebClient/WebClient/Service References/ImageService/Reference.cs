@@ -23,22 +23,7 @@ namespace WebClient.ImageService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CategoryField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CountField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PopularityField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string WnidField;
@@ -54,58 +39,6 @@ namespace WebClient.ImageService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Category {
-            get {
-                return this.CategoryField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CategoryField, value) != true)) {
-                    this.CategoryField = value;
-                    this.RaisePropertyChanged("Category");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Count {
-            get {
-                return this.CountField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CountField, value) != true)) {
-                    this.CountField = value;
-                    this.RaisePropertyChanged("Count");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Description {
-            get {
-                return this.DescriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
-                    this.DescriptionField = value;
-                    this.RaisePropertyChanged("Description");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Name {
             get {
                 return this.NameField;
@@ -114,19 +47,6 @@ namespace WebClient.ImageService {
                 if ((object.ReferenceEquals(this.NameField, value) != true)) {
                     this.NameField = value;
                     this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Popularity {
-            get {
-                return this.PopularityField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PopularityField, value) != true)) {
-                    this.PopularityField = value;
-                    this.RaisePropertyChanged("Popularity");
                 }
             }
         }
@@ -158,18 +78,17 @@ namespace WebClient.ImageService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ImageService.IImageService")]
     public interface IImageService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IImageService/SetWord", ReplyAction="http://tempuri.org/IImageService/SetWordResponse")]
-        void SetWord(WebClient.ImageService.Word w);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IImageService/TestWord", ReplyAction="http://tempuri.org/IImageService/TestWordResponse")]
+        WebClient.ImageService.Word TestWord();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IImageService/SetWord", ReplyAction="http://tempuri.org/IImageService/SetWordResponse")]
-        System.Threading.Tasks.Task SetWordAsync(WebClient.ImageService.Word w);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IImageService/TestWord", ReplyAction="http://tempuri.org/IImageService/TestWordResponse")]
+        System.Threading.Tasks.Task<WebClient.ImageService.Word> TestWordAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IImageService/GetWord", ReplyAction="http://tempuri.org/IImageService/GetWordResponse")]
-        WebClient.ImageService.Word GetWord(string word, string key);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IImageService/FindWord", ReplyAction="http://tempuri.org/IImageService/FindWordResponse")]
+        WebClient.ImageService.Word FindWord(string line, string key);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IImageService/GetWord", ReplyAction="http://tempuri.org/IImageService/GetWordResponse")]
-        System.Threading.Tasks.Task<WebClient.ImageService.Word> GetWordAsync(string word, string key);
-     
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IImageService/FindWord", ReplyAction="http://tempuri.org/IImageService/FindWordResponse")]
+        System.Threading.Tasks.Task<WebClient.ImageService.Word> FindWordAsync(string line, string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -199,20 +118,20 @@ namespace WebClient.ImageService {
                 base(binding, remoteAddress) {
         }
         
-        public void SetWord(WebClient.ImageService.Word w) {
-            base.Channel.SetWord(w);
+        public WebClient.ImageService.Word TestWord() {
+            return base.Channel.TestWord();
         }
         
-        public System.Threading.Tasks.Task SetWordAsync(WebClient.ImageService.Word w) {
-            return base.Channel.SetWordAsync(w);
+        public System.Threading.Tasks.Task<WebClient.ImageService.Word> TestWordAsync() {
+            return base.Channel.TestWordAsync();
         }
         
-        public WebClient.ImageService.Word GetWord(string word, string key) {
-            return base.Channel.GetWord(word, key);
+        public WebClient.ImageService.Word FindWord(string line, string key) {
+            return base.Channel.FindWord(line, key);
         }
         
-        public System.Threading.Tasks.Task<WebClient.ImageService.Word> GetWordAsync(string word, string key) {
-            return base.Channel.GetWordAsync(word, key);
+        public System.Threading.Tasks.Task<WebClient.ImageService.Word> FindWordAsync(string line, string key) {
+            return base.Channel.FindWordAsync(line, key);
         }
     }
 }

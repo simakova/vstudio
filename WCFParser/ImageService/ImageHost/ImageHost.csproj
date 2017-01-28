@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8455D379-2501-433D-AA7C-061FB1119A7F}</ProjectGuid>
+    <ProjectGuid>{8A79CAC5-C25E-4DCF-9C24-3D203A159671}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ImageHost</RootNamespace>
@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImageService\ImageService.csproj">
-      <Project>{cc3da8ca-dd5a-4674-95e7-39d9990055bd}</Project>
+      <Project>{e24a5179-5b6e-4a03-9b8f-ac3289d77f8e}</Project>
       <Name>ImageService</Name>
     </ProjectReference>
   </ItemGroup>

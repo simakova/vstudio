@@ -49,13 +49,13 @@ namespace WebClient {
         protected global::System.Web.UI.WebControls.TextBox txtCategory;
         
         /// <summary>
-        /// txtGloss элемент управления.
+        /// txtDescription элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGloss;
+        protected global::System.Web.UI.WebControls.TextBox txtDescription;
         
         /// <summary>
         /// txtCount элемент управления.
@@ -76,21 +76,30 @@ namespace WebClient {
         protected global::System.Web.UI.WebControls.TextBox txtPopularity;
         
         /// <summary>
-        /// btnGetWord элемент управления.
+        /// btnClear элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGetWord;
+        protected global::System.Web.UI.WebControls.Button btnClear;
         
         /// <summary>
-        /// btnSetWord элемент управления.
+        /// btnFindWord элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSetWord;
+        protected global::System.Web.UI.WebControls.Button btnFindWord;
+        
+        /// <summary>
+        /// btnTestWord элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTestWord;
     }
 }

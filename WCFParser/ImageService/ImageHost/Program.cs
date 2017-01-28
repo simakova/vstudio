@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.ServiceModel;
 
 namespace ImageHost
 {
     class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
             using (var host = new ServiceHost(typeof(ImageService.ImageService)))
             {
@@ -18,6 +18,7 @@ namespace ImageHost
                 Console.WriteLine("Host started...");
                 Console.ReadLine();
             }
+
         }
     }
 }
