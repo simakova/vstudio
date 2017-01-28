@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageService\ImageService.csproj", "{CC3DA8CA-DD5A-4674-95E7-39D9990055BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageHost", "ImageHost\ImageHost.csproj", "{8455D379-2501-433D-AA7C-061FB1119A7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC3DA8CA-DD5A-4674-95E7-39D9990055BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC3DA8CA-DD5A-4674-95E7-39D9990055BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC3DA8CA-DD5A-4674-95E7-39D9990055BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC3DA8CA-DD5A-4674-95E7-39D9990055BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8455D379-2501-433D-AA7C-061FB1119A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8455D379-2501-433D-AA7C-061FB1119A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8455D379-2501-433D-AA7C-061FB1119A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8455D379-2501-433D-AA7C-061FB1119A7F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
