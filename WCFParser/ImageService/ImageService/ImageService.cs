@@ -43,8 +43,14 @@ namespace ImageService
             {
                 WordObj.Name = line;
                 WordObj.Wnid = GetIDOfWord(line);
-                return WordObj;
+                //return WordObj;
             }
+            Tuple<string, string, string, string> info = GetInfoOfWord(WordObj.Name, WordObj.Wnid);
+            WordObj.Category = info.Item1;
+            WordObj.Description = info.Item2;
+            WordObj.Count = info.Item3;
+            WordObj.Popularity = info.Item4;
+
             return WordObj;
 
         }
@@ -120,6 +126,44 @@ namespace ImageService
             }
             return "Error";
         }
+        public static Tuple<string, string, string, string> GetInfoOfWord(string word, string wnid)
+        { // извлечение дополнительной информации по каждому слову 
+            using (var db = new LiteDatabase(@"WordData.db"))
+            {
+                var collection = db.GetCollection<Word>("words");
+                //collection.EnsureIndex(x => x.Name);
+                var result = collection.FindOne(x => x.Wnid.Equals(wnid));
+
+                if (result == null)
+                {
+                    XmlTextReader structure = new XmlTextReader(@"http://www.image-net.org/api/xml/structure_released.xml");
+                    structure.WhitespaceHandling = WhitespaceHandling.None;
+                    while (structure.Read())
+                    {
+                        if (structure.MoveToAttribute("wnid") && structure.Value.Contains(wnid))
+                        {
+                            //Console.WriteLine("WNID" + "\t" + "\t" + "\t" + "| " + wnid);
+                            WebClient client = new WebClient();
+                            //client.Encoding = Encoding.GetEncoding("utf-8");
+                            string details = client.DownloadString("http://image-net.org/__viz/getControlDetails.php?wnid=" + wnid);
+                            HtmlDocument doc = new HtmlDocument();
+                            doc.LoadHtml(details);
+                            HtmlNode catName = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[1]");
+                            HtmlNode description = doc.DocumentNode.SelectSingleNode("//table/tr[2]/td[1]");
+                            HtmlNode count = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[2]");
+                            HtmlNode percent = doc.DocumentNode.SelectSingleNode("//table/tr[1]/td[3]");
+                            SaveToLDB(word, wnid, catName.InnerText, description.InnerText, count.InnerText, percent.InnerText);
+                            return Tuple.Create(catName.InnerText, description.InnerText, count.InnerText, percent.InnerText);
+                        }
+                    }
+
+                }
+                else
+                    return GetInfoFromLDB(result);
+            }
+            return Tuple.Create("Error", "Error", "Error", "Error");
+        }
+
 
         public static string GetIDorWordFromLDB(Word r, string key)
         { //извлечение информации о слове из кэша
@@ -137,14 +181,14 @@ namespace ImageService
             return "Error";
         }
 
-        //public static Tuple<string, string, string, string> GetInfoFromLDB(Word r)
-        //{
-        //    using (var db = new LiteDatabase((@"WordData.db")))
-        //    {
-        //        return Tuple.Create(r.Category, r.Description, r.Count, r.Popularity);
-        //    }
-        //}
-        public static void SaveToLDB(string word, string wnid/*, string cat, string gloss, string count, string percent*/)
+        public static Tuple<string, string, string, string> GetInfoFromLDB(Word r)
+        {
+            using (var db = new LiteDatabase((@"WordData.db")))
+            {
+                return Tuple.Create(r.Category, r.Description, r.Count, r.Popularity);
+            }
+        }
+        public static void SaveToLDB(string word, string wnid, string cat, string gloss, string count, string percent)
         {
             using (var db = new LiteDatabase((@"WordData.db")))
             {
@@ -155,10 +199,10 @@ namespace ImageService
                     {
                         Wnid = wnid,
                         Name = word,
-                        //Category = cat,
-                        //Description = gloss,
-                        //Count = count,
-                        //Popularity = percent
+                        Category = cat,
+                        Description = gloss,
+                        Count = count,
+                        Popularity = percent
                     };
                     //newWord.Hyponims = new List<Hyponim> { };
                     //int i = 1;

@@ -111,7 +111,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebForm1.aspx" />
     <None Include="Service References\ImageService\ImageService.wsdl" />
     <None Include="Service References\ImageService\item.disco" />
     <None Include="Service References\ImageService\configuration91.svcinfo" />
@@ -120,6 +119,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="WebForm1.aspx" />
     <Content Include="Web.config" />
     <None Include="Service References\ImageService\item1.xsd">
       <SubType>Designer</SubType>
