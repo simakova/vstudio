@@ -32,26 +32,13 @@
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script>
     var uri = 'api/word';
-    //function formatSearchProd(item) {
-    //    return item.SportmasterId + " : " + item.Name;
-    //}
-
-    //function formatItem(item)
-    //{
-        //console.log(item.Wnid);
-        //return 'WNID: ' + item.Wnid + ' Name: ' + item.Name;
-        //return '<ul><li>' + 'WNID: ' + item.Wnid + '</li><li>' + 'Name: ' + item.Name + '</li></ul>';
-    //}
-
+  
     function findByName() {
         var name = $('#name').val();
         $.getJSON(uri + '?name=' + name)
             .done(function (data)
             {
-                //console.log(data.Wnid);
-                //$.each(data, function (data)
-                //{
-                    //console.log(data.Wnid);
+             
                 $('#word_2').text('Name: ' + data.Name);
                 $('#wordId_2').text('WNID: ' + data.Wnid);
                 $('#cat_2').text('Category: ' + data.Category);
@@ -59,13 +46,12 @@
                 $('#count_2').text('Count: ' + data.Count);
                 $('#pop_2').text('Popularity: ' + data.Popularity);
 
-                //});
             })
             .fail(function (jqXHR, textStatus, err)
             {
                 $('#word_2').text('Error: ' + err);
             });
-        //$('#words').text("blablabla");
+   
 
     }
 

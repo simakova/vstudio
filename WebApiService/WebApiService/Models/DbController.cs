@@ -11,7 +11,7 @@ namespace WebApiService.Models
         public static Word GetWord(string id)
         {
             //using (var db = new LiteDatabase(@"WordData4.db"))
-            using (var db = new LiteDatabase(@"C:\Users\Ksenia\WordData5.db"))
+            using (var db = new LiteDatabase(@"C:\Users\Ksenia\WordData2.db"))
             {
                 var collection = db.GetCollection<Word>("words");
                 var result = collection.FindOne(x => x.Wnid.Equals(id));
@@ -21,7 +21,7 @@ namespace WebApiService.Models
 
         public static void SaveWord(Word newWord)
         {
-            using (var db = new LiteDatabase(@"WordData.db"))
+            using (var db = new LiteDatabase(@"C:\Users\Ksenia\WordData2.db"))
             {
                 var collection = db.GetCollection<Word>("words");
                 collection.Insert(newWord);

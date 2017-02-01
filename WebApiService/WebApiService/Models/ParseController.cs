@@ -16,9 +16,7 @@ namespace WebApiService.Models
     {
         public static Word GetWordFromId(string id)
         {
-            var newWord = DbController.GetWord(id);
-            if (newWord == null)
-            {
+           
                 try
                 {
                     WebRequest req = WebRequest.Create("http://www.image-net.org/api/text/wordnet.synset.getwords?wnid=" + id);
@@ -39,52 +37,43 @@ namespace WebApiService.Models
                 {
                     return null;
                 }
-                DbController.SaveWord(newWord);
-            }
-            return newWord;
+                
+           
         }
 
         public static Word GetIDFromWord(string word) //Извлекаем ID по слову
         {
-            var result = DbController.GetWord(word);
-            if (result == null)
+            try
             {
-
-
-                try
-                {
-                    XmlTextReader structure = new XmlTextReader(@"http://www.image-net.org/api/xml/structure_released.xml");
-                    structure.WhitespaceHandling = WhitespaceHandling.None;
-                    while (structure.Read())
-                    { //пока XML читается, то находим введенное слово и соответствующий ему id
-                        if (structure.MoveToAttribute("words") && structure.Value.Contains(word))
-                        {
-                            structure.MoveToAttribute("wnid");
-                            string wnid = structure.Value;
-                            result = new Word()
-                            {
-                                Wnid = wnid,
-                                Name = word
-                            };
-                            return GetInfo(word, wnid);
-                        }
+                XmlTextReader structure = new XmlTextReader(@"http://www.image-net.org/api/xml/structure_released.xml");
+                structure.WhitespaceHandling = WhitespaceHandling.None;
+                while (structure.Read())
+                { //пока XML читается, то находим введенное слово и соответствующий ему id
+                    if (structure.MoveToAttribute("words") && structure.Value.Contains(word))
+                    {
+                        structure.MoveToAttribute("wnid");
+                        string wnid = structure.Value;
+                        //var result = new Word()
+                        //{
+                        //    Wnid = wnid,
+                        //    Name = word
+                        //};
+                        return GetInfo(word, wnid);
                     }
                 }
-                catch (ArgumentException e)
-                {
-                    return null;
-                }
+            }
+            catch (ArgumentException e)
+            {
                 return null;
             }
-            else
-                return result;
-
             return null;
         }
+           
+        
 
         public static Word GetInfo(string line, string id)
         {
-            var newWord = DbController.GetWord(line);
+            var newWord = DbController.GetWord(id);
             if (newWord == null)
             {
                 try
@@ -118,6 +107,7 @@ namespace WebApiService.Models
                                 Count = count.InnerText,
                                 Popularity = percent.InnerText
                             };
+                            DbController.SaveWord(newWord);
                             return newWord;
                         }
 
